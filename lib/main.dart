@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor:
-            kBrandSecundary, //Con ello estamos asignando que todas las platallas tendrán es color
+            kBrandSecundaryColors, //Con ello estamos asignando que todas las platallas tendrán es color
         textTheme: GoogleFonts
             .montserratTextTheme(), // centralizar el estilo de la fuente
       ),

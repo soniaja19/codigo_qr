@@ -1,3 +1,4 @@
+import 'package:codigo_qr/pages/pages_scanner.dart';
 import 'package:codigo_qr/ui/general/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(28.0),
           child: Column(
             children: [
               const Text(
@@ -40,9 +41,16 @@ class HomePage extends StatelessWidget {
                 width: double.infinity,
                 height: 48.0,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ScannerPage(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: kBrandPrimary,
+                    backgroundColor: kBrandPrimaryColors,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                         14.0,
@@ -52,7 +60,7 @@ class HomePage extends StatelessWidget {
                   child: const Text(
                     "Escanear QR",
                     style: TextStyle(
-                      color: kBrandSecundary,
+                      color: kBrandSecundaryColors,
                       fontSize: 16.0,
                       fontWeight: FontWeight.w700,
                     ),
