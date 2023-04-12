@@ -1,5 +1,5 @@
 import 'package:codigo_qr/pages/pages_scanner.dart';
-import 'package:codigo_qr/ui/general/colors.dart';
+import 'package:codigo_qr/ui/widgets/common_button_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,6 +12,7 @@ class HomePage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(28.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
                 "SaveQR",
@@ -37,35 +38,12 @@ class HomePage extends StatelessWidget {
                 "assets/images/codigo-qr.png",
                 width: width * 0.8,
               ),
-              SizedBox(
-                width: double.infinity,
-                height: 48.0,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ScannerPage(),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kBrandPrimaryColors,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        14.0,
-                      ),
-                    ),
-                  ),
-                  child: const Text(
-                    "Escanear QR",
-                    style: TextStyle(
-                      color: kBrandSecundaryColors,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
+              CommonButtonWidget(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ScannerPage()));
+                },
+                text: "Escanear QR",
               ),
               const SizedBox(
                 height: 12.0,
