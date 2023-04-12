@@ -1,6 +1,8 @@
+import 'package:codigo_qr/models/qr_model.dart';
 import 'package:codigo_qr/ui/widgets/common_button_widget.dart';
 import 'package:codigo_qr/ui/widgets/common_textfield_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -78,7 +80,22 @@ class RegisterPage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: CommonButtonWidget(
-                onPressed: () {},
+                onPressed: () {
+                  //Se utilizó la libreria intl para colocar formato a la fecha
+                  DateFormat myFormat = DateFormat("dd/MM/yyy hh: mm a");
+                  String myDate = myFormat.format(DateTime.now());
+
+                  QRModel mantequilla = QRModel.fromJson(
+                    {
+                      "title": "La esquina",
+                      "observation": "Restaurant",
+                      "url": "hptt//...",
+                      "datetime": myDate,
+                    },
+                  );
+                  print(DateTime.now());
+                  print(mantequilla.toJson());
+                },
                 text: "Guardar",
               ),
             ),
