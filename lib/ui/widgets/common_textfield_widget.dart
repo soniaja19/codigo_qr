@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 class CommonTextFieldWidget extends StatelessWidget {
   String hinText;
   TextEditingController controller;
-  CommonTextFieldWidget({required this.hinText, required this.controller});
+  bool? isRequired;
+  CommonTextFieldWidget({
+    required this.hinText,
+    required this.controller,
+    this.isRequired,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       style: const TextStyle(
         color: Colors.white,
@@ -31,7 +36,23 @@ class CommonTextFieldWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(14.0),
           borderSide: BorderSide.none,
         ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14.0),
+          borderSide: BorderSide.none,
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14.0),
+          borderSide: BorderSide.none,
+        ),
       ),
+
+      //Con el  return "Campo obligatorio", estamos indicando que el usuario debe llenar los campos obligatorios o de lo contrario no se registrará
+      validator: (String? value) {
+        if (value != null && value.isEmpty && isRequired == true) {
+          return "Campo obligatorio";
+        }
+        return null;
+      },
     );
   }
 }

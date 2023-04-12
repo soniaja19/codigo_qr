@@ -8,6 +8,8 @@ import 'package:qr_flutter/qr_flutter.dart';
 class RegisterPage extends StatelessWidget {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _observationController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,62 +19,67 @@ class RegisterPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    const Text(
-                      "Registrar contenido",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.w700,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Registrar contenido",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 14.0,
-                    ),
-                    const Text(
-                      "Por favor ingresa los campos requeridos",
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
+                      const SizedBox(
+                        height: 14.0,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-                    CommonTextFieldWidget(
-                      hinText: "Ingresa un Titulo....",
-                      controller: _titleController,
-                    ),
-                    const SizedBox(
-                      height: 14.0,
-                    ),
-                    CommonTextFieldWidget(
-                      hinText: "Ingresa una Observación....",
-                      controller: _observationController,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16.0),
+                      const Text(
+                        "Por favor ingresa los campos requeridos",
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
-                      child: QrImage(
-                        data:
-                            "https://pub.dev/packages/qr_code_scanner/install",
-                        version: QrVersions.auto,
-                        size: 200.0,
+                      const SizedBox(
+                        height: 30.0,
                       ),
-                    ),
+                      CommonTextFieldWidget(
+                        hinText: "Ingresa un Titulo....",
+                        controller: _titleController,
+                        isRequired: true,
+                      ),
+                      const SizedBox(
+                        height: 14.0,
+                      ),
+                      CommonTextFieldWidget(
+                        hinText: "Ingresa una Observación....",
+                        controller: _observationController,
+                        isRequired: false,
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        child: QrImage(
+                          data:
+                              "https://pub.dev/packages/qr_code_scanner/install",
+                          version: QrVersions.auto,
+                          size: 200.0,
+                        ),
+                      ),
 
-                    // const Expanded(
-                    //   child: SizedBox(),
-                    // ),
-                  ],
+                      // const Expanded(
+                      //   child: SizedBox(),
+                      // ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -87,16 +94,14 @@ class RegisterPage extends StatelessWidget {
                   DateFormat myFormat = DateFormat("dd/MM/yyy hh: mm");
                   String myDate = myFormat.format(DateTime.now());
 
-                  QRModel mantequilla = QRModel.fromJson(
-                    {
-                      "title": _titleController.text,
-                      "observation": _observationController.text,
-                      "url": "hptt//...",
-                      "datetime": myDate,
-                    },
+                  QRModel mantequilla = QRModel(
+                    title: _titleController.text,
+                    observation: _observationController.text,
+                    url: "HTTP://",
+                    datetime: myDate,
                   );
-                  print(DateTime.now());
-                  print(mantequilla.toJson());
+                  //DBAdmin().insertQR(mantequilla);
+                  if (_formKey.currentState!.validate()) {}
                 },
                 text: "Guardar",
               ),
