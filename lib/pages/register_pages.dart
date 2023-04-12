@@ -6,8 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
-
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _observationController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,12 +43,14 @@ class RegisterPage extends StatelessWidget {
                     ),
                     CommonTextFieldWidget(
                       hinText: "Ingresa un Titulo....",
+                      controller: _titleController,
                     ),
                     const SizedBox(
                       height: 14.0,
                     ),
                     CommonTextFieldWidget(
                       hinText: "Ingresa una Observación....",
+                      controller: _observationController,
                     ),
                     const SizedBox(
                       height: 20.0,
@@ -82,13 +84,13 @@ class RegisterPage extends StatelessWidget {
               child: CommonButtonWidget(
                 onPressed: () {
                   //Se utilizó la libreria intl para colocar formato a la fecha
-                  DateFormat myFormat = DateFormat("dd/MM/yyy hh: mm a");
+                  DateFormat myFormat = DateFormat("dd/MM/yyy hh: mm");
                   String myDate = myFormat.format(DateTime.now());
 
                   QRModel mantequilla = QRModel.fromJson(
                     {
-                      "title": "La esquina",
-                      "observation": "Restaurant",
+                      "title": _titleController.text,
+                      "observation": _observationController.text,
                       "url": "hptt//...",
                       "datetime": myDate,
                     },

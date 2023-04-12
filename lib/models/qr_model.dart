@@ -9,7 +9,7 @@ class QRModel {
     required this.url,
     required this.datetime,
   });
-
+  //QRModel Este es un modelo, que tiene parámetros
   factory QRModel.fromJson(Map<String, dynamic> json) => QRModel(
         title: json["title"] ?? "",
         observation: json["observation"],

@@ -127,8 +127,7 @@ class _ScannerPageState extends State<ScannerPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RegisterPage()));
+                                    builder: (context) => RegisterPage()));
                           }
                         : null,
                     text: "Registrar",

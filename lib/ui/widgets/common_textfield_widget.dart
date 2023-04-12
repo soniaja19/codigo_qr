@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class CommonTextFieldWidget extends StatelessWidget {
   String hinText;
-  CommonTextFieldWidget({
-    required this.hinText,
-  });
+  TextEditingController controller;
+  CommonTextFieldWidget({required this.hinText, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       style: const TextStyle(
         color: Colors.white,
       ),
