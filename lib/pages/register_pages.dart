@@ -90,18 +90,18 @@ class RegisterPage extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: CommonButtonWidget(
                 onPressed: () {
-                  //Se utilizó la libreria intl para colocar formato a la fecha
-                  DateFormat myFormat = DateFormat("dd/MM/yyy hh: mm");
-                  String myDate = myFormat.format(DateTime.now());
+                  if (_formKey.currentState!.validate()) {
+                    //Se utilizó la libreria intl para colocar formato a la fecha
+                    DateFormat myFormat = DateFormat("dd/MM/yyy hh: mm");
+                    String myDate = myFormat.format(DateTime.now());
 
-                  QRModel mantequilla = QRModel(
-                    title: _titleController.text,
-                    observation: _observationController.text,
-                    url: "HTTP://",
-                    datetime: myDate,
-                  );
-                  //DBAdmin().insertQR(mantequilla);
-                  if (_formKey.currentState!.validate()) {}
+                    QRModel mantequilla = QRModel(
+                      title: _titleController.text,
+                      observation: _observationController.text,
+                      url: "HTTP://",
+                      datetime: myDate,
+                    );
+                  }
                 },
                 text: "Guardar",
               ),
