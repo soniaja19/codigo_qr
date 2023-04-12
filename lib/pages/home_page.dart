@@ -1,4 +1,4 @@
-import 'package:codigo_qr/pages/pages_scanner.dart';
+import 'package:codigo_qr/pages/scanner_pages.dart';
 import 'package:codigo_qr/ui/widgets/common_button_widget.dart';
 import 'package:flutter/material.dart';
 

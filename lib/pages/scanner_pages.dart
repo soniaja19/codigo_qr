@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:codigo_qr/pages/register_pages.dart';
 import 'package:codigo_qr/ui/general/colors.dart';
 import 'package:codigo_qr/ui/widgets/common_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class _ScannerPageState extends State<ScannerPage> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
+  String urlData = "";
 
   //verificar la camara
   @override
@@ -46,8 +49,9 @@ class _ScannerPageState extends State<ScannerPage> {
       //scannedDataStream va estar pendiente de lo que escanea, va estar a l escucha de la data
       setState(() {
         result = scanData;
-        if (result != null) {
+        if (result != null && result!.code != null) {
           print("XXXXX: ${result!.code}");
+          urlData = result!.code!; //el valor de la QR es data
         }
       });
     });
@@ -89,7 +93,7 @@ class _ScannerPageState extends State<ScannerPage> {
         children: [
           const Expanded(
             flex: 4,
-            //child: _buildQrView(context),
+            // child: _buildQrView(context),
             child: SizedBox(),
           ),
           Expanded(
@@ -97,16 +101,19 @@ class _ScannerPageState extends State<ScannerPage> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 18.0),
               width: double.infinity,
-              //color: Colors.white10,
+              color: Colors.white10,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    "Por favor escanea un código QR",
+                  Text(
+                    //Si s que el urlData está vacio, se imprime Por.... y si está lleno se escanea el urlData.
+                    urlData.isEmpty
+                        ? "Por favor escanea un código QR"
+                        : urlData,
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16.0,
                     ),
@@ -115,7 +122,15 @@ class _ScannerPageState extends State<ScannerPage> {
                     height: 10.0,
                   ),
                   CommonButtonWidget(
-                    onPressed: () {},
+                    onPressed: !urlData.isNotEmpty
+                        ? () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegisterPage()));
+                          }
+                        : null,
                     text: "Registrar",
                   ),
                 ],
