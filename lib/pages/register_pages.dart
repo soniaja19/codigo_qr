@@ -9,6 +9,9 @@ import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class RegisterPage extends StatelessWidget {
+  String url;
+  RegisterPage({required this.url});
+
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _observationController = TextEditingController();
 
@@ -71,8 +74,7 @@ class RegisterPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: QrImage(
-                          data:
-                              "https://pub.dev/packages/qr_code_scanner/install",
+                          data: url,
                           version: QrVersions.auto,
                           size: 200.0,
                         ),
@@ -103,7 +105,7 @@ class RegisterPage extends StatelessWidget {
                     QRModel mantequilla = QRModel(
                       title: _titleController.text,
                       observation: _observationController.text,
-                      url: "HTTP://",
+                      url: url,
                       datetime: myDate,
                     );
                     Future.delayed(const Duration(milliseconds: 400), () {
