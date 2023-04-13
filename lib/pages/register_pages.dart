@@ -1,5 +1,6 @@
 import 'package:codigo_qr/db/db_admin.dart';
 import 'package:codigo_qr/models/qr_model.dart';
+import 'package:codigo_qr/pages/home_page.dart';
 import 'package:codigo_qr/ui/general/colors.dart';
 import 'package:codigo_qr/ui/widgets/common_button_widget.dart';
 import 'package:codigo_qr/ui/widgets/common_textfield_widget.dart';
@@ -92,6 +93,8 @@ class RegisterPage extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: CommonButtonWidget(
                 onPressed: () {
+                  FocusScopeNode myFocusScope = FocusScope.of(context);
+                  myFocusScope.unfocus();
                   if (_formKey.currentState!.validate()) {
                     //Se utilizó la libreria intl para colocar formato a la fecha
                     DateFormat myFormat = DateFormat("dd/MM/yyy hh: mm");
@@ -103,25 +106,38 @@ class RegisterPage extends StatelessWidget {
                       url: "HTTP://",
                       datetime: myDate,
                     );
-                    DBAdmin().insertQR(mantequilla).then((value) {
-                      if (value >= 0) {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                        //Mostar un snackbar
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          backgroundColor: Colors.white,
-                          behavior: SnackBarBehavior.floating,
-                          content: const Text(
-                            "Se registró tu QR correctamente",
-                            style: TextStyle(
-                              color: kBrandSecundaryColors,
-                            ),
-                          ),
-                        ));
-                      }
+                    Future.delayed(const Duration(milliseconds: 400), () {
+                      DBAdmin().insertQR(mantequilla).then(
+                        (value) {
+                          if (value >= 0) {
+                            // Navigator.pop(context);
+                            // Navigator.pop(context);
+
+                            //Con está opción regresamos a la página principal, las otras pantallas se eliminan
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()),
+                                (route) => false);
+                            //Mostar un snackbar
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                backgroundColor: Colors.white,
+                                behavior: SnackBarBehavior.floating,
+                                content: const Text(
+                                  "Se registró tu QR correctamente",
+                                  style: TextStyle(
+                                    color: kBrandPrimaryColors,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      );
                     });
                   }
                 },
