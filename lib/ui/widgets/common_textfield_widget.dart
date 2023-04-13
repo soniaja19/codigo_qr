@@ -48,7 +48,8 @@ class CommonTextFieldWidget extends StatelessWidget {
 
       //Con el  return "Campo obligatorio", estamos indicando que el usuario debe llenar los campos obligatorios o de lo contrario no se registrará
       validator: (String? value) {
-        if (value != null && value.isEmpty && isRequired == true) {
+        // cuando queremos que solo uno sea requerido && isRequired == true
+        if (value != null && value.isEmpty) {
           return "Campo obligatorio";
         }
         return null;

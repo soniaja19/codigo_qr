@@ -1,4 +1,6 @@
+import 'package:codigo_qr/db/db_admin.dart';
 import 'package:codigo_qr/models/qr_model.dart';
+import 'package:codigo_qr/ui/general/colors.dart';
 import 'package:codigo_qr/ui/widgets/common_button_widget.dart';
 import 'package:codigo_qr/ui/widgets/common_textfield_widget.dart';
 import 'package:flutter/material.dart';
@@ -101,6 +103,26 @@ class RegisterPage extends StatelessWidget {
                       url: "HTTP://",
                       datetime: myDate,
                     );
+                    DBAdmin().insertQR(mantequilla).then((value) {
+                      if (value >= 0) {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        //Mostar un snackbar
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          backgroundColor: Colors.white,
+                          behavior: SnackBarBehavior.floating,
+                          content: const Text(
+                            "Se registró tu QR correctamente",
+                            style: TextStyle(
+                              color: kBrandSecundaryColors,
+                            ),
+                          ),
+                        ));
+                      }
+                    });
                   }
                 },
                 text: "Guardar",
