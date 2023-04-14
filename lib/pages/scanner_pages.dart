@@ -122,7 +122,7 @@ class _ScannerPageState extends State<ScannerPage> {
                     height: 10.0,
                   ),
                   CommonButtonWidget(
-                    onPressed: !urlData.isNotEmpty
+                    onPressed: urlData.isNotEmpty
                         ? () {
                             Navigator.pop(context);
                             Navigator.push(
